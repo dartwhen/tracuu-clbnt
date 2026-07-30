@@ -35,7 +35,7 @@ export default function SearchForm({ onResult, searchState }: SearchFormProps) {
   const handleSearch = async () => {
     if (!sbd.trim() || !classNum.trim()) return
 
-    const classStr = `10C${classNum}`
+    const classStr = classNum.trim().toUpperCase()
     const cacheKey = `${sbd.trim().toUpperCase()}|${classStr}`
 
     // Return cached result immediately without delay
@@ -50,7 +50,7 @@ export default function SearchForm({ onResult, searchState }: SearchFormProps) {
     await new Promise((r) => setTimeout(r, 3500))
 
     const found = MOCK_DATA.find(
-      (s) => s.sbd.toUpperCase() === sbd.trim().toUpperCase() && s.class === classStr,
+      (s) => s.sbd.toUpperCase() === sbd.trim().toUpperCase() && s.class.toUpperCase() === classStr,
     )
 
     if (found) {
@@ -105,30 +105,24 @@ export default function SearchForm({ onResult, searchState }: SearchFormProps) {
         <div className="space-y-2">
           <label htmlFor="classNum" className="text-sm font-bold text-slate-700 flex items-center gap-2">
             <GraduationCap className="w-4 h-4 text-indigo-500" aria-hidden="true" />
-            Số lớp học (Khối 10C)
+            Lớp học
           </label>
 
-          <div className="flex items-stretch rounded-xl overflow-hidden border border-slate-200 focus-within:ring-2 focus-within:ring-indigo-500/25 focus-within:border-indigo-500 transition-all">
-            <span className="flex items-center px-4 bg-slate-100 border-r border-slate-200 text-slate-500 font-bold select-none text-sm">
-              10C
-            </span>
-            <input
-              type="number"
-              id="classNum"
-              value={classNum}
-              onChange={(e) => setClassNum(e.target.value)}
-              placeholder="Điền số lớp vào đây..."
-              min={1}
-              max={20}
-              className="w-full px-4 py-3 outline-none text-slate-900 font-medium placeholder-slate-400 text-sm [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-              required
-              disabled={isLoading}
-            />
-          </div>
+          <input
+            type="text"
+            id="classNum"
+            value={classNum}
+            onChange={(e) => setClassNum(e.target.value)}
+            placeholder="Điền lớp học của bạn vào đây..."
+            className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500/25 focus:border-indigo-500 outline-none transition-all text-slate-900 font-medium placeholder-slate-400 text-sm"
+            required
+            disabled={isLoading}
+            autoComplete="off"
+          />
 
           <p className="text-xs text-slate-500 italic pl-1 flex items-center gap-1.5">
             <Info className="w-3.5 h-3.5 text-indigo-400 shrink-0" aria-hidden="true" />
-            Nếu bạn học lớp 10C2, hãy điền vào ô trống trên là 2.
+            Nếu bạn học lớp 10C2, hãy điền vào ô trống trên là 10C2 - đầy đủ số và chữ
           </p>
         </div>
 
