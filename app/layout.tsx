@@ -12,7 +12,6 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: 'Cổng Tra Cứu Kết Quả Tuyển Thành Viên - CLB Nghệ Thuật LHP',
   description: 'Tra cứu kết quả tuyển sinh thành viên CLB Nghệ Thuật THPT Lê Hồng Phong - Gen 6 Năm Học 2026-2027',
-  generator: 'v0.app',
   icons: {
     icon: [
       {
