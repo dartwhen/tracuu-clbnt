@@ -84,7 +84,7 @@ export default function SearchForm({ onResult, searchState }: SearchFormProps) {
       >
         {/* SBD Input */}
         <div className="space-y-2">
-          <label htmlFor="sbd" className="text-sm font-bold text-slate-700 flex items-center gap-2">
+          <label htmlFor="sbd" className="text-base font-bold text-slate-700 flex items-center gap-2">
             <Hash className="w-4 h-4 text-indigo-500" aria-hidden="true" />
             Số báo danh
           </label>
@@ -94,7 +94,7 @@ export default function SearchForm({ onResult, searchState }: SearchFormProps) {
             value={sbd}
             onChange={(e) => setSbd(e.target.value)}
             placeholder="Ví dụ: LHP001, ART042..."
-            className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500/25 focus:border-indigo-500 outline-none transition-all text-slate-900 font-medium placeholder-slate-400 text-sm"
+            className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500/25 focus:border-indigo-500 outline-none transition-all text-slate-900 font-medium placeholder-slate-400 text-base"
             required
             disabled={isLoading}
             autoComplete="off"
@@ -103,7 +103,7 @@ export default function SearchForm({ onResult, searchState }: SearchFormProps) {
 
         {/* Class Input */}
         <div className="space-y-2">
-          <label htmlFor="classNum" className="text-sm font-bold text-slate-700 flex items-center gap-2">
+          <label htmlFor="classNum" className="text-base font-bold text-slate-700 flex items-center gap-2">
             <GraduationCap className="w-4 h-4 text-indigo-500" aria-hidden="true" />
             Lớp học
           </label>
@@ -114,7 +114,7 @@ export default function SearchForm({ onResult, searchState }: SearchFormProps) {
             value={classNum}
             onChange={(e) => setClassNum(e.target.value)}
             placeholder="Điền lớp học của bạn vào đây..."
-            className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500/25 focus:border-indigo-500 outline-none transition-all text-slate-900 font-medium placeholder-slate-400 text-sm"
+            className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500/25 focus:border-indigo-500 outline-none transition-all text-slate-900 font-medium placeholder-slate-400 text-base"
             required
             disabled={isLoading}
             autoComplete="off"
