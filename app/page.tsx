@@ -59,7 +59,14 @@ export default function Page() {
 
         {/* Footer */}
         <footer className="text-center text-xs text-slate-400 leading-relaxed pb-6 space-y-4 w-full">
-          <p className="text-sm font-bold text-slate-600 opacity-60">© 2026 CLB Nghệ Thuật THPT Lê Hồng Phong</p>
+          <div className="space-y-1">
+  <p className="text-sm font-bold text-slate-500 uppercase tracking-wider">
+    CỔNG TRA CỨU KẾT QUẢ TUYỂN SINH CLB NGHỆ THUẬT
+  </p>
+  <p className="text-sm font-bold text-slate-600 opacity-60">
+    © 2026 CLB Nghệ Thuật THPT Lê Hồng Phong
+  </p>
+</div>
 
           {/* Address */}
           <div className="space-y-1">
