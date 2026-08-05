@@ -24,11 +24,11 @@ const STATUS_CONFIG = {
     message: "Rất tiếc, bạn chưa đạt yêu cầu của kỳ tuyển này. Bạn vẫn còn cơ hội tham gia đợt tuyển sinh tiếp theo. Hãy tiếp tục cố gắng nhé! 💗",
   },
   absent: {
-    label: "VẮNG MẶT / CHƯA CÓ KẾT QUẢ",
+    label: "CHƯA CÓ KẾT QUẢ",
     badgeClass: "bg-amber-100 text-amber-700 border border-amber-200",
     banner: "bg-amber-50 border-amber-200 text-amber-800",
     bannerIcon: <XCircle className="w-5 h-5 text-amber-500 shrink-0" aria-hidden="true" />,
-    message: "Thí sinh vắng mặt trong buổi audition hoặc chưa có cập nhật kết quả chính thức.",
+    message: "Thí sinh vắng mặt hoặc chưa có cập nhật kết quả chính thức.",
   },
 } as const
 
