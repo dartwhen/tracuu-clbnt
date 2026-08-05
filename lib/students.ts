@@ -21,9 +21,11 @@ const cleanValue = (value: any): string => {
 }
 
 function extractPassedDepartments(status: string): string[] {
-  const matches = [...status.matchAll(/pass\s*(?:["“”']\s*)?([^,"“”']+?)(?:["”']|(?=\s*(?:,|pass|$)))/gi)]
+  // Thêm \b ở đầu để bắt chính xác từ 'pass'
+  const matches = [...status.matchAll(/\bpass\s*(?:["“”']\s*)?([^,"“”']+?)(?:["”']|(?=\s*(?:,|pass|$)))/gi)]
   return [...new Set(matches.map((match) => match[1].trim()).filter(Boolean))]
 }
+
 
 export function getAllStudents(): StudentRecord[] {
   try {
