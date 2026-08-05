@@ -40,7 +40,7 @@ MẪU PHẢN HỒI CHUẨN:
       contents: lastMessage,
       config: {
         systemInstruction: systemInstruction,
-        maxOutputTokens: 150,
+        maxOutputTokens: 170,
         temperature: 0.7, // Tăng lên 0.7 để phản hồi tự nhiên, linh hoạt hơn
       },
     })
