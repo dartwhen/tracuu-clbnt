@@ -11,8 +11,8 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'Cổng Tra Cứu Kết Quả Tuyển Thành Viên - CLB Nghệ Thuật LHP',
-  description: 'Tra cứu kết quả tuyển sinh thành viên CLB Nghệ Thuật THPT Lê Hồng Phong - Gen 6 Năm Học 2026-2027',
+  title: 'Cổng Tra Cứu Kết Quả Tuyển Thành Viên - CLB Nghệ Thuật LHP',
+  description: 'Tra cứu kết quả tuyển sinh thành viên CLB Nghệ Thuật THPT Lê Hồng Phong - Gen 6 Năm Học 2026-2027',
   icons: {
     icon: [
       {
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   colorScheme: 'light',
-  themeColor: '#4f46e5',
+  themeColor: '#f8fafc',
 }
 
 export default function RootLayout({
@@ -44,7 +44,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi" className={`${plusJakartaSans.variable} bg-slate-50`}>
-      <body className="antialiased font-sans">
+      <body className="antialiased font-sans bg-slate-50">
         {children}
         <AIChat />
         {process.env.NODE_ENV === 'production' && <Analytics />}
