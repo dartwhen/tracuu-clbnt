@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Music } from "lucide-react"
+import { Mail, MessageCircle, Music, Music2, UserRound } from "lucide-react"
 import SearchForm, { type SearchState, type StudentResult } from "@/components/search-form"
 import ResultBox from "@/components/result-box"
 
@@ -70,49 +70,48 @@ export default function Page() {
           {/* Contact links */}
           <div className="space-y-2">
             <p className="text-slate-500 font-semibold uppercase tracking-wider text-[10px]">Thông tin liên hệ</p>
-            <div className="flex flex-col items-center gap-1.5">
-              <div className="flex items-center gap-2">
-                <span className="text-slate-400 font-medium w-20 text-right">Email:</span>
+            <div className="flex flex-col items-center gap-2">
+              {/* Club leader */}
+              <a
+                href="https://www.facebook.com/share/189wRffP6v/?mibextid=wwXIfr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-slate-500 hover:text-indigo-500 transition-colors underline underline-offset-2"
+              >
+                <UserRound className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+                <span>Chủ nhiệm: Đặng Phương Anh</span>
+              </a>
+
+              {/* Email and TikTok */}
+              <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
                 <a
                   href="mailto:clbntthptlhp@gmail.com"
-                  className="text-slate-500 hover:text-indigo-500 transition-colors underline underline-offset-2"
+                  className="inline-flex items-center gap-2 text-slate-500 hover:text-indigo-500 transition-colors underline underline-offset-2"
                 >
-                  clbntthptlhp@gmail.com
+                  <Mail className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+                  <span>Email: clbntthptlhp@gmail.com</span>
                 </a>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-slate-400 font-medium w-20 text-right">Facebook:</span>
-                <a
-                  href="https://facebook.com/clbnghethuatthptlehongphong"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-slate-500 hover:text-indigo-500 transition-colors underline underline-offset-2"
-                >
-                  fb.com/clbnghethuatthptlehongphong
-                </a>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-slate-400 font-medium w-20 text-right">TikTok:</span>
                 <a
                   href="https://tiktok.com/@clbnt.lhptn"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-slate-500 hover:text-indigo-500 transition-colors underline underline-offset-2"
+                  className="inline-flex items-center gap-2 text-slate-500 hover:text-indigo-500 transition-colors underline underline-offset-2"
                 >
-                  tiktok.com/@clbnt.lhptn
+                  <Music2 className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+                  <span>TikTok: tiktok.com/@clbnt.lhptn</span>
                 </a>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="text-slate-400 font-medium w-20 text-right">Chủ nhiệm:</span>
-                <a
-                  href="https://www.facebook.com/share/189wRffP6v/?mibextid=wwXIfr"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-slate-500 hover:text-indigo-500 transition-colors underline underline-offset-2"
-                >
-                  Đặng Phương Anh
-                </a>
-              </div>
+
+              {/* Club Facebook */}
+              <a
+                href="https://facebook.com/clbnghethuatthptlehongphong"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-slate-500 hover:text-indigo-500 transition-colors underline underline-offset-2"
+              >
+                <MessageCircle className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+                <span>Facebook CLB: fb.com/clbnghethuatthptlehongphong</span>
+              </a>
             </div>
           </div>
         </footer>
