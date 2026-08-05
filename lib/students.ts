@@ -42,10 +42,12 @@ export function getAllStudents(): StudentRecord[] {
     }) as Record<string, any>[]
 
     return records.map((record) => {
-      const rawStatus = cleanValue(record.status)
+      const rawStatusValue = record.status
+      const rawStatus = cleanValue(rawStatusValue)
       const rawDept = cleanValue(record.department)
       const normalizedStatus = rawStatus.toLowerCase()
-      const isAbsent = normalizedStatus.includes('absent') || normalizedStatus.includes('vắng')
+      const isMissingStatus = rawStatusValue === null || rawStatusValue === undefined || String(rawStatusValue).trim() === '' || normalizedStatus === 'null' || normalizedStatus === 'chưa có'
+      const isAbsent = isMissingStatus || normalizedStatus.includes('absent') || normalizedStatus.includes('vắng')
       const passedDepartments = extractPassedDepartments(rawStatus)
       const isPass = passedDepartments.length > 0
 

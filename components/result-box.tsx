@@ -1,6 +1,6 @@
 "use client"
 
-import { SearchCode, UserCheck, CheckCircle2, XCircle, Minus, BookOpen, Star, MessageSquareText } from "lucide-react"
+import { SearchCode, UserCheck, CheckCircle2, XCircle, BookOpen, Star, MessageSquareText } from "lucide-react"
 import type { StudentResult, SearchState } from "./search-form"
 
 interface ResultBoxProps {
@@ -12,7 +12,6 @@ const STATUS_CONFIG = {
   pass: {
     label: "ĐỖ CHÍNH THỨC",
     badgeClass: "bg-emerald-100 text-emerald-700 border border-emerald-200",
-    icon: <CheckCircle2 className="w-5 h-5 text-emerald-500" aria-hidden="true" />,
     banner: "bg-emerald-50 border-emerald-200 text-emerald-800",
     bannerIcon: <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" aria-hidden="true" />,
     message: "Chúc mừng! Bạn đã chính thức trở thành thành viên của CLB Nghệ Thuật LHP.",
@@ -20,20 +19,18 @@ const STATUS_CONFIG = {
   fail: {
     label: "CHƯA ĐẠT",
     badgeClass: "bg-red-100 text-red-600 border border-red-200",
-    icon: <XCircle className="w-5 h-5 text-red-500" aria-hidden="true" />,
     banner: "bg-red-50 border-red-200 text-red-800",
     bannerIcon: <XCircle className="w-5 h-5 text-red-500 shrink-0" aria-hidden="true" />,
     message: "Rất tiếc, bạn chưa đạt yêu cầu của kỳ tuyển này. Bạn vẫn còn cơ hội tham gia đợt tuyển sinh tiếp theo. Hãy tiếp tục cố gắng nhé! 💗",
   },
   absent: {
     label: "—",
-    badgeClass: "bg-slate-100 text-slate-500 border border-slate-200",
-    icon: <Minus className="w-5 h-5 text-slate-400" aria-hidden="true" />,
+    badgeClass: "bg-transparent text-black border-0",
     banner: "",
     bannerIcon: null,
     message: "",
   },
-}
+} as const
 
 export default function ResultBox({ state, result }: ResultBoxProps) {
   const displayDepartment =
@@ -85,6 +82,7 @@ export default function ResultBox({ state, result }: ResultBoxProps) {
             </h3>
             <span
               className={`px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider ${STATUS_CONFIG[result.status].badgeClass}`}
+              aria-label={result.status === "absent" ? "Chưa có kết quả" : undefined}
             >
               {STATUS_CONFIG[result.status].label}
             </span>
@@ -114,15 +112,13 @@ export default function ResultBox({ state, result }: ResultBoxProps) {
           )}
 
           {/* Notes */}
-          {result.notes && (
-            <div className="flex items-start gap-2.5 bg-indigo-50 border border-indigo-100 rounded-xl p-4">
-              <MessageSquareText className="w-4 h-4 text-indigo-500 shrink-0 mt-0.5" aria-hidden="true" />
-              <div>
-                <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider block mb-1">Lời nhắn từ Ban tổ chức</span>
-                <p className="text-sm text-slate-700 leading-relaxed">{result.notes}</p>
-              </div>
+          <div className="flex items-start gap-2.5 bg-indigo-50 border border-indigo-100 rounded-xl p-4">
+            <MessageSquareText className="w-4 h-4 text-indigo-500 shrink-0 mt-0.5" aria-hidden="true" />
+            <div>
+              <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider block mb-1">Lời nhắn từ Ban tổ chức</span>
+              <p className="text-sm text-slate-700 leading-relaxed">{result.notes === "Chưa có" ? "" : result.notes || ""}</p>
             </div>
-          )}
+          </div>
         </div>
       )}
     </div>
