@@ -83,7 +83,7 @@ export default function Page() {
               <div className="flex items-center gap-2">
                 <span className="text-slate-400 font-medium w-20 text-right">Facebook:</span>
                 <a
-                  href="https://facebook.com/clbnghethuatthptlehongphong"
+                  href="https://fb.com/clbnghethuatthptlehongphong"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-slate-500 hover:text-indigo-500 transition-colors underline underline-offset-2"
