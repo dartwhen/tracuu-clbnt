@@ -58,7 +58,7 @@ export default function Page() {
         <ResultBox state={searchState} result={result} />
 
         {/* Footer */}
-        <footer className="text-center text-xs text-slate-400 leading-relaxed pb-6 space-y-4 w-full">
+        <footer className="text-center text-xs text-slate-400 leading-relaxed pb-32 space-y-4 w-full">
           <div className="space-y-1">
   <p className="text-sm font-bold text-slate-500 uppercase tracking-wider">
     CỔNG TRA CỨU KẾT QUẢ TUYỂN SINH CLB NGHỆ THUẬT
