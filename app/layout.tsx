@@ -3,7 +3,6 @@ import type { Metadata, Viewport } from 'next'
 import { Plus_Jakarta_Sans } from 'next/font/google'
 import { AIChat } from '@/components/ai-chat'
 import './globals.css'
-import type { Viewport } from 'next'
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -33,9 +32,10 @@ export const metadata: Metadata = {
   },
 }
 
+/* Gộp gọn viewport để tránh lỗi trùng lặp và đặt màu khớp với bg-slate-50 (#f8fafc) */
 export const viewport: Viewport = {
   colorScheme: 'light',
-  themeColor: '#4f46e5',
+  themeColor: '#f8fafc',
 }
 
 export default function RootLayout({
@@ -45,15 +45,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi" className={`${plusJakartaSans.variable} bg-slate-50`}>
-      <body className="antialiased font-sans">
+      <body className="antialiased font-sans bg-slate-50">
         {children}
         <AIChat />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
   )
-}
-
-export const viewport: Viewport = {
-  themeColor: '#f8fafc',
 }
