@@ -191,30 +191,31 @@ export function AIChat() {
               </div>
 
               {/* Input Area */}
-              <form
-                onSubmit={handleSubmit}
-                className="p-4 md:p-6 border-t border-blue-100 bg-white"
-              >
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-200 focus-within:border-blue-500 transition-colors">
-                  <input
-                    type="text"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    placeholder="Nhập câu hỏi của bạn..."
-                    className="flex-1 bg-transparent text-blue-900 placeholder-blue-400 outline-none text-base"
-                    disabled={isLoading}
-                  />
-                  <button
-                    type="submit"
-                    disabled={isLoading || !input.trim()}
-                    className="flex-shrink-0 p-2 rounded-full bg-blue-500 text-white hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-1"
-                    aria-label="Send message"
-                  >
-                    <Send className="w-4 h-4" />
-                    <span className="text-base font-semibold">Hỏi</span>
-                  </button>
-                </div>
-              </form>
+<form
+  onSubmit={handleSubmit}
+  className="p-4 md:p-6 border-t border-blue-100 bg-white"
+>
+  <div className="w-full flex items-center justify-between gap-2 pl-4 pr-1.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 focus-within:border-blue-500 transition-colors">
+    <input
+      type="text"
+      value={input}
+      onChange={(e) => setInput(e.target.value)}
+      placeholder="Nhập câu hỏi của bạn..."
+      className="flex-1 bg-transparent text-blue-900 placeholder-blue-400 outline-none text-[17px]"
+      disabled={isLoading}
+    />
+    <button
+      type="submit"
+      disabled={isLoading || !input.trim()}
+      className="shrink-0 px-3.5 py-2 rounded-full bg-blue-500 hover:bg-blue-600 active:scale-95 text-white font-semibold text-[17px] transition-all duration-200 flex items-center justify-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+      aria-label="Send message"
+    >
+      <Send className="w-4 h-4" />
+      <span>Hỏi</span>
+    </button>
+  </div>
+</form>
+
             </motion.div>
           </>
         )}
