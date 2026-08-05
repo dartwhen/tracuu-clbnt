@@ -89,7 +89,7 @@ export default function SearchForm({ onResult, searchState }: SearchFormProps) {
           Tra cứu kết quả tuyển sinh
         </h2>
         <p className="text-sm text-slate-500 mt-1.5 leading-relaxed">
-          Vui lòng nhập đầy đủ Số báo danh và chọn Số lớp để kiểm tra trạng thái tuyển thành viên.
+          Vui lòng nhập đầy đủ Số báo danh và Lớp học của bạn để kiểm tra kết quả tuyển thành viên.
         </p>
       </div>
 
