@@ -110,7 +110,7 @@ export default function SearchForm({ onResult, searchState }: SearchFormProps) {
             id="sbd"
             value={sbd}
             onChange={(e) => setSbd(e.target.value)}
-            placeholder="Ví dụ: LHP001, ART042..."
+            placeholder="Ví dụ: NT600, NT620..."
             className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500/25 focus:border-indigo-500 outline-none transition-all text-slate-900 font-medium placeholder-slate-400 text-base disabled:bg-slate-100 disabled:cursor-not-allowed"
             required
             disabled={isLoading}
