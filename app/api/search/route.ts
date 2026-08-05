@@ -6,27 +6,38 @@ function handleSearch(sbd: string, classNum?: string) {
     return NextResponse.json({ result: null, found: false })
   }
 
-  const matches = searchStudents(sbd)
-  const matchedStudent = matches.find((student) => {
+  const matches = searchStudents(sbd).filter((student) => {
     if (classNum && classNum.trim() !== '') {
       return student.class.toLowerCase() === classNum.trim().toLowerCase()
     }
     return true
   })
 
-  if (!matchedStudent) {
+  if (matches.length === 0) {
     return NextResponse.json({ result: null, found: false })
   }
 
+  const firstMatch = matches[0]
+  const passedDepartments = [...new Set(
+    matches.flatMap((student) =>
+      student.passedDepartment === 'Chưa có'
+        ? []
+        : student.passedDepartment.split(',').map((department) => department.trim()),
+    ),
+  )]
+  const hasPass = passedDepartments.length > 0
+  const allAbsent = matches.every((student) => student.status === 'absent')
+  const status = hasPass ? 'pass' : allAbsent ? 'absent' : 'fail'
+
   return NextResponse.json({
     result: {
-      sbd: matchedStudent.sbd,
-      name: matchedStudent.name,
-      class: matchedStudent.class,
-      department: matchedStudent.department,
-      passedDepartment: matchedStudent.passedDepartment,
-      status: matchedStudent.status,
-      notes: matchedStudent.notes,
+      sbd: firstMatch.sbd,
+      name: firstMatch.name,
+      class: firstMatch.class,
+      department: firstMatch.department,
+      passedDepartment: passedDepartments.join(', ') || 'Chưa có',
+      status,
+      notes: firstMatch.notes,
     },
     found: true,
   })

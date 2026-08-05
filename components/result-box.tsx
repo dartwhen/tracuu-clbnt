@@ -35,24 +35,9 @@ const STATUS_CONFIG = {
   },
 }
 
-// Hàm trích xuất các ban trúng tuyển từ chữ pass trong notes (VD: pass "Ban Múa", pass "Ban Hát")
-function extractPassedDepartments(notes?: string): string[] {
-  if (!notes) return []
-  const matches = notes.match(/"([^"]+)"/g)
-  if (matches) {
-    return matches.map((m) => m.replace(/"/g, "").trim())
-  }
-  return []
-}
-
 export default function ResultBox({ state, result }: ResultBoxProps) {
-
-  // Lọc lấy chính xác Ban trúng tuyển nếu PASS
-  const passedDepts = result && result.status === "pass" ? extractPassedDepartments(result.notes) : []
   const displayDepartment =
-    result && result.status === "pass" && passedDepts.length > 0
-      ? passedDepts.join(", ")
-      : result?.department || ""
+    result?.status === "pass" ? result.passedDepartment : result?.department || "Chưa có"
 
   return (
     <div className="w-full bg-white rounded-3xl shadow-lg border border-slate-200/60 p-6 md:p-8 transition-all duration-300">
