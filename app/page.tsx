@@ -110,7 +110,7 @@ export default function Page() {
                 className="inline-flex items-center gap-2 text-slate-500 hover:text-indigo-500 transition-colors underline underline-offset-2"
               >
                 <MessageCircle className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
-                <span>Facebook CLB: fb.com/clbnghethuatthptlehongphong</span>
+                <span>Facebook: fb.com/clbnghethuatthptlehongphong</span>
               </a>
             </div>
           </div>
