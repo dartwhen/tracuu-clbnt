@@ -24,13 +24,14 @@ const STATUS_CONFIG = {
     message: "Rất tiếc, bạn chưa đạt yêu cầu của kỳ tuyển này. Bạn vẫn còn cơ hội tham gia đợt tuyển sinh tiếp theo. Hãy tiếp tục cố gắng nhé! 💗",
   },
   absent: {
-    label: "—",
-    badgeClass: "bg-transparent text-black border-0",
-    banner: "",
-    bannerIcon: null,
-    message: "",
+    label: "VẮNG MẶT / CHƯA CÓ KẾT QUẢ",
+    badgeClass: "bg-amber-100 text-amber-700 border border-amber-200",
+    banner: "bg-amber-50 border-amber-200 text-amber-800",
+    bannerIcon: <XCircle className="w-5 h-5 text-amber-500 shrink-0" aria-hidden="true" />,
+    message: "Thí sinh vắng mặt trong buổi audition hoặc chưa có cập nhật kết quả chính thức.",
   },
 } as const
+
 
 export default function ResultBox({ state, result }: ResultBoxProps) {
   const displayDepartment =
