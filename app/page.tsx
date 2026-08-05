@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Mail, MessageCircle, Music, Music2, UserRound } from "lucide-react"
+import { Star, Music } from "lucide-react"
 import SearchForm, { type SearchState, type StudentResult } from "@/components/search-form"
 import ResultBox from "@/components/result-box"
 
@@ -78,7 +78,7 @@ export default function Page() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-slate-500 hover:text-indigo-500 transition-colors underline underline-offset-2"
               >
-                <UserRound className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+                <Star className="w-3.5 h-3.5 shrink-0 fill-current" aria-hidden="true" />
                 <span>Chủ nhiệm: Đặng Phương Anh</span>
               </a>
 
@@ -88,7 +88,10 @@ export default function Page() {
                   href="mailto:clbntthptlhp@gmail.com"
                   className="inline-flex items-center gap-2 text-slate-500 hover:text-indigo-500 transition-colors underline underline-offset-2"
                 >
-                  <Mail className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+                  {/* Icon Email khớp 100% ảnh pngtree */}
+                  <svg className="w-3.5 h-3.5 shrink-0 fill-current" viewBox="0 0 24 24">
+                    <path d="M 1.5 4.5 h 21 L 12 11.8 Z M 2.8 19.5 h 18.4 L 12 14.1 Z M 1.5 6.2 v 11.6 L 9.2 12 Z M 22.5 6.2 v 11.6 L 14.8 12 Z" />
+                  </svg>
                   <span>Email: clbntthptlhp@gmail.com</span>
                 </a>
                 <a
@@ -97,7 +100,9 @@ export default function Page() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-slate-500 hover:text-indigo-500 transition-colors underline underline-offset-2"
                 >
-                  <Music2 className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+                  <svg className="w-3.5 h-3.5 shrink-0 fill-current" viewBox="0 0 24 24">
+                    <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743l-.002-.001a2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-5.394 2.38 6.393 6.393 0 0 0 1.258 8.913 6.337 6.337 0 0 0 8.599-1.282 6.386 6.386 0 0 0 1.056-3.805V8.844a8.216 8.216 0 0 0 4.716 1.488V6.887a4.78 4.78 0 0 1-1.001-.201z"/>
+                  </svg>
                   <span>TikTok: tiktok.com/@clbnt.lhptn</span>
                 </a>
               </div>
@@ -109,7 +114,9 @@ export default function Page() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-slate-500 hover:text-indigo-500 transition-colors underline underline-offset-2"
               >
-                <MessageCircle className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+                <svg className="w-3.5 h-3.5 shrink-0 fill-current" viewBox="0 0 24 24">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
                 <span>Facebook: fb.com/clbnghethuatthptlehongphong</span>
               </a>
             </div>
