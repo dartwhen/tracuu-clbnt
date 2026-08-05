@@ -1,6 +1,6 @@
 "use client"
 
-import { SearchCode, UserCheck, CheckCircle2, XCircle, BookOpen, Star, MessageSquareText } from "lucide-react"
+import { SearchCode, UserCheck, CheckCircle2, XCircle, AlertCircle, BookOpen, Star, MessageSquareText } from "lucide-react"
 import type { StudentResult, SearchState } from "./search-form"
 
 interface ResultBoxProps {
@@ -27,11 +27,10 @@ const STATUS_CONFIG = {
     label: "CHƯA CÓ KẾT QUẢ",
     badgeClass: "bg-amber-100 text-amber-700 border border-amber-200",
     banner: "bg-amber-50 border-amber-200 text-amber-800",
-    bannerIcon: <XCircle className="w-5 h-5 text-amber-500 shrink-0" aria-hidden="true" />,
-    message: "Thí sinh vắng mặt hoặc chưa có cập nhật kết quả chính thức.",
+    bannerIcon: <AlertCircle className="w-5 h-5 text-amber-500 shrink-0" aria-hidden="true" />,
+    message: "Thí sinh vắng mặt trong buổi phỏng vấn hoặc chưa có kết quả chính thức.",
   },
 } as const
-
 
 export default function ResultBox({ state, result }: ResultBoxProps) {
   const displayDepartment =
@@ -39,7 +38,6 @@ export default function ResultBox({ state, result }: ResultBoxProps) {
 
   return (
     <div className="w-full bg-white rounded-3xl shadow-lg border border-slate-200/60 p-6 md:p-8 transition-all duration-300">
-      {/* Idle / Placeholder */}
       {state === "idle" && (
         <div className="py-10 flex flex-col items-center gap-3 text-slate-400">
           <SearchCode className="w-14 h-14 text-slate-200" aria-hidden="true" />
@@ -47,7 +45,6 @@ export default function ResultBox({ state, result }: ResultBoxProps) {
         </div>
       )}
 
-      {/* Loading */}
       {state === "loading" && (
         <div className="py-10 flex flex-col items-center gap-4 text-slate-500">
           <div
@@ -59,7 +56,6 @@ export default function ResultBox({ state, result }: ResultBoxProps) {
         </div>
       )}
 
-      {/* Not Found */}
       {state === "not-found" && (
         <div className="py-10 flex flex-col items-center gap-3 fade-in-up">
           <div className="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center border border-red-100">
@@ -72,24 +68,18 @@ export default function ResultBox({ state, result }: ResultBoxProps) {
         </div>
       )}
 
-      {/* Found */}
       {state === "found" && result && (
         <div className="space-y-5 fade-in-up">
-          {/* Header */}
           <div className="flex items-center justify-between border-b border-slate-100 pb-4">
             <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
               <UserCheck className="w-5 h-5 text-indigo-500" aria-hidden="true" />
               Thông tin thí sinh
             </h3>
-            <span
-              className={`px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider ${STATUS_CONFIG[result.status].badgeClass}`}
-              aria-label={result.status === "absent" ? "Chưa có kết quả" : undefined}
-            >
+            <span className={`px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider ${STATUS_CONFIG[result.status].badgeClass}`}>
               {STATUS_CONFIG[result.status].label}
             </span>
           </div>
 
-          {/* Info Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <InfoCard label="Họ và Tên" value={result.name} />
             <InfoCard label="Lớp Học" value={result.class} />
@@ -101,23 +91,16 @@ export default function ResultBox({ state, result }: ResultBoxProps) {
             />
           </div>
 
-          {/* Status banner (Ẩn hoàn toàn nếu vắng mặt - absent) */}
-          {result.status !== "absent" && (
-            <div
-              className={`flex items-start gap-3 p-4 rounded-xl border ${STATUS_CONFIG[result.status].banner}`}
-              role="alert"
-            >
-              {STATUS_CONFIG[result.status].bannerIcon}
-              <p className="text-sm font-semibold leading-relaxed">{STATUS_CONFIG[result.status].message}</p>
-            </div>
-          )}
+          <div className={`flex items-start gap-3 p-4 rounded-xl border ${STATUS_CONFIG[result.status].banner}`} role="alert">
+            {STATUS_CONFIG[result.status].bannerIcon}
+            <p className="text-sm font-semibold leading-relaxed">{STATUS_CONFIG[result.status].message}</p>
+          </div>
 
-          {/* Notes */}
           <div className="flex items-start gap-2.5 bg-indigo-50 border border-indigo-100 rounded-xl p-4">
             <MessageSquareText className="w-4 h-4 text-indigo-500 shrink-0 mt-0.5" aria-hidden="true" />
             <div>
               <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider block mb-1">Lời nhắn từ Ban tổ chức</span>
-              <p className="text-sm text-slate-700 leading-relaxed">{result.notes === "Chưa có" ? "" : result.notes || ""}</p>
+              <p className="text-sm text-slate-700 leading-relaxed">{result.notes === "Chưa có" ? "Không có lời nhắn bổ sung." : result.notes}</p>
             </div>
           </div>
         </div>
@@ -126,15 +109,7 @@ export default function ResultBox({ state, result }: ResultBoxProps) {
   )
 }
 
-function InfoCard({
-  label,
-  value,
-  icon,
-}: {
-  label: string
-  value: string
-  icon?: React.ReactNode
-}) {
+function InfoCard({ label, value, icon }: { label: string; value: string; icon?: React.ReactNode }) {
   return (
     <div className="bg-slate-50 p-4 rounded-xl border border-slate-100">
       <span className="text-xs font-bold text-slate-400 block uppercase mb-1 flex items-center gap-1.5">

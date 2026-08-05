@@ -5,8 +5,8 @@ import path from 'path'
 export interface StudentRecord {
   sbd: string
   name: string
-  department: string // Ban đăng ký ban đầu
-  passedDepartment: string // Các ban trúng tuyển
+  department: string
+  passedDepartment: string
   class: string
   status: 'pass' | 'fail' | 'absent'
   notes: string
@@ -21,19 +21,15 @@ const cleanValue = (value: any): string => {
 }
 
 function extractPassedDepartments(status: string): string[] {
-  // Thêm \b ở đầu để bắt chính xác từ 'pass'
+  // Sử dụng \bpass\b để chỉ khớp chính xác từ 'pass' đứng độc lập, tránh dính 'fail' hay 'absent'
   const matches = [...status.matchAll(/\bpass\s*(?:["“”']\s*)?([^,"“”']+?)(?:["”']|(?=\s*(?:,|pass|$)))/gi)]
   return [...new Set(matches.map((match) => match[1].trim()).filter(Boolean))]
 }
 
-
 export function getAllStudents(): StudentRecord[] {
   try {
     const filePath = path.join(process.cwd(), 'data', 'student-results.csv')
-    if (!fs.existsSync(filePath)) {
-      console.error('Không tìm thấy file tại:', filePath)
-      return []
-    }
+    if (!fs.existsSync(filePath)) return []
 
     const fileContent = fs.readFileSync(filePath, 'utf-8')
     const records = parse(fileContent, {
@@ -48,18 +44,30 @@ export function getAllStudents(): StudentRecord[] {
       const rawStatus = cleanValue(rawStatusValue)
       const rawDept = cleanValue(record.department)
       const normalizedStatus = rawStatus.toLowerCase()
+
+      // Kiểm tra vắng mặt trước
       const isMissingStatus = rawStatusValue === null || rawStatusValue === undefined || String(rawStatusValue).trim() === '' || normalizedStatus === 'null' || normalizedStatus === 'chưa có'
       const isAbsent = isMissingStatus || normalizedStatus.includes('absent') || normalizedStatus.includes('vắng')
+
+      // Lấy danh sách ban đỗ
       const passedDepartments = extractPassedDepartments(rawStatus)
-      const isPass = passedDepartments.length > 0
+      const isPass = !isAbsent && passedDepartments.length > 0
+
+      // Xác định status chuẩn xác
+      let finalStatus: 'pass' | 'fail' | 'absent' = 'fail'
+      if (isAbsent) {
+        finalStatus = 'absent'
+      } else if (isPass) {
+        finalStatus = 'pass'
+      }
 
       return {
         sbd: cleanValue(record.sbd),
         name: cleanValue(record.name),
         department: rawDept,
-        passedDepartment: passedDepartments.join(', '),
+        passedDepartment: isPass ? passedDepartments.join(', ') : 'Chưa có',
         class: cleanValue(record.class),
-        status: isAbsent ? 'absent' : isPass ? 'pass' : 'fail',
+        status: finalStatus,
         notes: cleanValue(record.notes),
       }
     })
