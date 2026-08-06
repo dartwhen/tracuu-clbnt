@@ -72,7 +72,7 @@ export function AIChat() {
 
   return (
     <>
-      {/* Floating Button */}
+     {/* Floating Button */}
       <AnimatePresence mode="wait">
         {!isOpen && (
           <motion.button
@@ -82,9 +82,11 @@ export function AIChat() {
             exit={{ scale: 0, opacity: 0 }}
             onClick={() => setIsOpen(true)}
             style={{
-              bottom: 'calc(0.5rem + env(safe-area-inset-bottom, 0px))',
+              /* Mặc định trên Mobile / Safari iPhone: 0.4rem + Safe Area */
+              bottom: 'calc(0.4rem + env(safe-area-inset-bottom, 0px))',
             }}
-            className="fixed left-1/2 -translate-x-1/2 z-50 px-8 py-4 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium whitespace-nowrap flex items-center gap-2 shadow-[0_0_24px_8px_rgba(99,102,241,0.45)] hover:shadow-[0_0_32px_12px_rgba(99,102,241,0.6)] transition-shadow"
+            /* Nâng độ cao tăng dần theo kích thước màn hình */
+            className="fixed left-1/2 -translate-x-1/2 z-50 px-8 py-4 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium whitespace-nowrap flex items-center gap-2 shadow-[0_0_24px_8px_rgba(99,102,241,0.45)] hover:shadow-[0_0_32px_12px_rgba(99,102,241,0.6)] transition-shadow sm:!bottom-[1.8rem] md:!bottom-[2.5rem] lg:!bottom-[3.5rem]"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
