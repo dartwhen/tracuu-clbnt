@@ -70,13 +70,13 @@ export default function Page() {
 
           {/* Address */}
           <div className="space-y-1">
-            <p className="text-slate-500 font-semibold uppercase tracking-wider text-[10px]">Địa chỉ</p>
+            <p className="text-slate-500 font-extrabold uppercase tracking-wider text-[12px]">Địa chỉ</p>
             <p className="text-slate-500">THPT Lê Hồng Phong, 25 Đ. Nguyễn Thị Minh Khai, phường Phổ Yên, Thái Nguyên</p>
           </div>
 
           {/* Contact links */}
           <div className="space-y-2">
-            <p className="text-slate-500 font-semibold uppercase tracking-wider text-[10px]">Thông tin liên hệ</p>
+            <p className="text-slate-500 font-extrabold uppercase tracking-wider text-[12px]">Thông tin liên hệ</p>
             <div className="flex flex-col items-center gap-2">
               {/* Club leader */}
               <a
