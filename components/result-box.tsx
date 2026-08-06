@@ -1,6 +1,6 @@
 "use client"
 
-import { SearchCode, UserCheck, CheckCircle2, XCircle, AlertCircle, BookOpen, Star, MessageSquareText } from "lucide-react"
+import { SearchCode, UserCheck, CheckCircle2, XCircle, AlertCircle, BookOpen, Hash, IdCard, GraduationCap, MessageSquareText } from "lucide-react"
 import type { StudentResult, SearchState } from "./search-form"
 
 interface ResultBoxProps {
@@ -81,9 +81,9 @@ export default function ResultBox({ state, result }: ResultBoxProps) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <InfoCard label="Họ và Tên" value={result.name} />
-            <InfoCard label="Lớp Học" value={result.class} />
-            <InfoCard label="Số Báo Danh" value={result.sbd} icon={<Star className="w-3.5 h-3.5 text-indigo-400" />} />
+            <InfoCard label="Họ và Tên" value={result.name} icon={<IdCard className="w-3.5 h-3.5 text-indigo-400" />} />
+            <InfoCard label="Lớp Học" value={result.class} icon={<GraduationCap className="w-3.5 h-3.5 text-indigo-400" />} />
+            <InfoCard label="Số Báo Danh" value={result.sbd} icon={<Hash className="w-3.5 h-3.5 text-indigo-400" />} />
             <InfoCard
               label={result.status === "pass" ? "Ban Trúng Tuyển" : "Ban Đăng Ký"}
               value={displayDepartment}
