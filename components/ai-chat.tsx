@@ -10,11 +10,18 @@ type Message = {
   content: string
 }
 
+const SUGGESTED_QUESTIONS = [
+  'Đỗ một ban thì ban còn lại thế nào?',
+  'Chưa có kinh nghiệm có sợ khó hòa nhập?',
+  'Nhóm chat CLB tham gia thế nào?',
+]
+
 export function AIChat() {
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [showSuggestedQuestions, setShowSuggestedQuestions] = useState(true)
   const chatContainerRef = useRef<HTMLDivElement>(null)
 
   // Auto-scroll to bottom when new messages arrive
@@ -22,21 +29,21 @@ export function AIChat() {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
     }
-  }, [messages, isLoading])
+  }, [messages, isLoading, showSuggestedQuestions])
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!input.trim() || isLoading) return
+  const sendQuestion = async (text: string) => {
+    if (!text.trim() || isLoading) return
 
     const userMessage: Message = {
       id: Date.now().toString(),
       role: 'user',
-      content: input,
+      content: text,
     }
 
     setMessages((prev) => [...prev, userMessage])
     setInput('')
     setIsLoading(true)
+    setShowSuggestedQuestions(false) // Ẩn câu hỏi mẫu sau khi bấm chọn
 
     try {
       const response = await fetch('/api/chat', {
@@ -70,9 +77,14 @@ export function AIChat() {
     }
   }
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    await sendQuestion(input)
+  }
+
   return (
     <>
-     {/* Floating Button */}
+      {/* Floating Button */}
       <AnimatePresence mode="wait">
         {!isOpen && (
           <motion.button
@@ -82,10 +94,8 @@ export function AIChat() {
             exit={{ scale: 0, opacity: 0 }}
             onClick={() => setIsOpen(true)}
             style={{
-              /* Mặc định trên Mobile / Safari iPhone: 0.4rem + Safe Area */
               bottom: 'calc(0.4rem + env(safe-area-inset-bottom, 0px))',
             }}
-            /* Nâng độ cao tăng dần theo kích thước màn hình */
             className="fixed left-1/2 -translate-x-1/2 z-50 px-8 py-4 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium whitespace-nowrap flex items-center gap-2 shadow-[0_0_24px_8px_rgba(99,102,241,0.45)] hover:shadow-[0_0_32px_12px_rgba(99,102,241,0.6)] transition-shadow sm:!bottom-[1.8rem] md:!bottom-[2.5rem] lg:!bottom-[3.5rem]"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -175,6 +185,32 @@ export function AIChat() {
                     </motion.div>
                   ))
                 )}
+
+                {/* 3 Nút câu hỏi mẫu (Chỉ hiện khi showSuggestedQuestions = true) */}
+                {showSuggestedQuestions && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex flex-col items-end gap-2 pt-2"
+                  >
+                    {SUGGESTED_QUESTIONS.map((question, index) => (
+                      <button
+                        key={index}
+                        type="button"
+                        onClick={() => sendQuestion(question)}
+                        disabled={isLoading}
+                        style={{
+                          borderColor: 'rgb(22, 93, 252)',
+                          color: 'rgb(22, 93, 252)',
+                        }}
+                        className="px-3.5 py-1.5 rounded-full border bg-transparent text-xs md:text-sm text-right hover:bg-[rgb(22,93,252)]/10 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {question}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+
                 {isLoading && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
@@ -193,31 +229,30 @@ export function AIChat() {
               </div>
 
               {/* Input Area */}
-<form
-  onSubmit={handleSubmit}
-  className="p-4 md:p-6 border-t border-blue-100 bg-white"
->
-  <div className="w-full flex items-center justify-between gap-2 pl-4 pr-1.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 focus-within:border-blue-500 transition-colors">
-    <input
-      type="text"
-      value={input}
-      onChange={(e) => setInput(e.target.value)}
-      placeholder="Nhập câu hỏi của bạn..."
-      className="flex-1 bg-transparent text-blue-900 placeholder-blue-400 outline-none text-[17px]"
-      disabled={isLoading}
-    />
-    <button
-      type="submit"
-      disabled={isLoading || !input.trim()}
-      className="shrink-0 px-3.5 py-2 rounded-full bg-blue-500 hover:bg-blue-600 active:scale-95 text-white font-semibold text-[17px] transition-all duration-200 flex items-center justify-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
-      aria-label="Send message"
-    >
-      <Send className="w-4 h-4" />
-      <span>Hỏi</span>
-    </button>
-  </div>
-</form>
-
+              <form
+                onSubmit={handleSubmit}
+                className="p-4 md:p-6 border-t border-blue-100 bg-white"
+              >
+                <div className="w-full flex items-center justify-between gap-2 pl-4 pr-1.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 focus-within:border-blue-500 transition-colors">
+                  <input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder="Nhập câu hỏi của bạn..."
+                    className="flex-1 bg-transparent text-blue-900 placeholder-blue-400 outline-none text-[17px]"
+                    disabled={isLoading}
+                  />
+                  <button
+                    type="submit"
+                    disabled={isLoading || !input.trim()}
+                    className="shrink-0 px-3.5 py-2 rounded-full bg-blue-500 hover:bg-blue-600 active:scale-95 text-white font-semibold text-[17px] transition-all duration-200 flex items-center justify-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+                    aria-label="Send message"
+                  >
+                    <Send className="w-4 h-4" />
+                    <span>Hỏi</span>
+                  </button>
+                </div>
+              </form>
             </motion.div>
           </>
         )}
