@@ -11,7 +11,7 @@ type Message = {
 }
 
 const SUGGESTED_QUESTIONS = [
-  'Đỗ một ban thì ban còn lại thế nào?',
+  'Đăng ký hai ban nhưng chỉ hiện một ban thì ban còn lại thế nào?',
   'Chưa có kinh nghiệm có sợ khó hòa nhập?',
   'Nhóm chat CLB tham gia thế nào?',
 ]
