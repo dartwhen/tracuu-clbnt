@@ -39,30 +39,55 @@ export function AIChat() {
       content: text,
     }
 
-    setMessages((prev) => [...prev, userMessage])
+    const updatedMessages = [...messages, userMessage]
+    setMessages(updatedMessages)
     setInput('')
     setIsLoading(true)
     setShowSuggestedQuestions(false)
+
+    const assistantId = (Date.now() + 1).toString()
 
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          messages: [...messages, userMessage],
+          messages: updatedMessages,
         }),
       })
 
-      if (!response.ok) throw new Error('Failed to get response')
+      if (!response.ok || !response.body) throw new Error('Failed to get response')
 
-      const data = await response.json()
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: 'assistant',
-        content: data.message,
+      const reader = response.body.getReader()
+      const decoder = new TextDecoder()
+
+      // Tạo tin nhắn AI rỗng để chuẩn bị hứng Stream
+      setMessages((prev) => [
+        ...prev,
+        { id: assistantId, role: 'assistant', content: '' },
+      ])
+
+      let isFirstChunk = true
+
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+
+        const chunkText = decoder.decode(value, { stream: true })
+        if (chunkText) {
+          if (isFirstChunk) {
+            setIsLoading(false) // Tắt hiệu ứng ba chấm khi bắt đầu có chữ trả về
+            isFirstChunk = false
+          }
+          setMessages((prev) =>
+            prev.map((msg) =>
+              msg.id === assistantId
+                ? { ...msg, content: msg.content + chunkText }
+                : msg
+            )
+          )
+        }
       }
-
-      setMessages((prev) => [...prev, assistantMessage])
     } catch (error) {
       console.error('[v0] Chat error:', error)
       const errorMessage: Message = {
@@ -70,7 +95,11 @@ export function AIChat() {
         role: 'assistant',
         content: 'Xin lỗi, có lỗi xảy ra. Vui lòng thử lại.',
       }
-      setMessages((prev) => [...prev, errorMessage])
+      setMessages((prev) =>
+        prev.some((m) => m.id === assistantId)
+          ? prev.map((m) => (m.id === assistantId ? errorMessage : m))
+          : [...prev, errorMessage]
+      )
     } finally {
       setIsLoading(false)
     }
@@ -160,26 +189,29 @@ export function AIChat() {
                     </div>
                   </div>
                 ) : (
-                  messages.map((message) => (
-                    <motion.div
-                      key={message.id}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className={`flex ${
-                        message.role === 'user' ? 'justify-end' : 'justify-start'
-                      }`}
-                    >
-                      <div
-                        className={`max-w-xs md:max-w-md px-4 py-2.5 rounded-2xl ${
-                          message.role === 'user'
-                            ? 'bg-blue-500 text-white rounded-br-none'
-                            : 'bg-blue-100 text-blue-900 rounded-bl-none'
+                  messages.map((message) => {
+                    if (message.role === 'assistant' && !message.content) return null
+                    return (
+                      <motion.div
+                        key={message.id}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className={`flex ${
+                          message.role === 'user' ? 'justify-end' : 'justify-start'
                         }`}
                       >
-                        <p className="text-base">{message.content}</p>
-                      </div>
-                    </motion.div>
-                  ))
+                        <div
+                          className={`max-w-xs md:max-w-md px-4 py-2.5 rounded-2xl ${
+                            message.role === 'user'
+                              ? 'bg-blue-500 text-white rounded-br-none'
+                              : 'bg-blue-100 text-blue-900 rounded-bl-none'
+                          }`}
+                        >
+                          <p className="text-base whitespace-pre-wrap">{message.content}</p>
+                        </div>
+                      </motion.div>
+                    )
+                  })
                 )}
 
                 {/* 3 Nút câu hỏi mẫu */}
