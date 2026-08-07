@@ -128,18 +128,18 @@ export function AIChat() {
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
               className="fixed bottom-0 left-0 right-0 md:bottom-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 z-50 w-full md:max-w-xl h-[90vh] md:h-[680px] rounded-t-3xl md:rounded-2xl bg-white shadow-2xl flex flex-col overflow-hidden"
             >
-              {/* Header - Hạ cỡ chữ & icon, bỏ viền kẻ đường dưới */}
-              <div className="flex items-center justify-between px-5 pt-4 pb-2 md:px-6 md:pt-5 md:pb-2 shrink-0">
-                <h2 className="text-base md:text-lg font-bold text-blue-900 flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-blue-500" />
-                  Trợ lý AI
+              {/* Header - Phóng to 1.35x */}
+              <div className="flex items-center justify-between px-6 pt-5 pb-3 md:px-8 md:pt-6 md:pb-3 shrink-0">
+                <h2 className="text-xl md:text-[24px] font-bold text-blue-900 flex items-center gap-3">
+                  <Sparkles className="w-7 h-7 text-blue-500 shrink-0" />
+                  <span>Trợ lý AI</span>
                 </h2>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-1 hover:bg-blue-50 rounded-lg transition-colors text-slate-400 hover:text-slate-600 active:scale-90"
+                  className="p-1.5 hover:bg-blue-50 rounded-xl transition-colors text-slate-400 hover:text-slate-600 active:scale-90"
                   aria-label="Close chat"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="w-7 h-7" />
                 </button>
               </div>
 
@@ -224,7 +224,7 @@ export function AIChat() {
                 )}
               </div>
 
-              {/* Input Area - Bỏ viền kẻ đường trên */}
+              {/* Input Area */}
               <form
                 onSubmit={handleSubmit}
                 className="p-4 md:p-6 bg-white shrink-0"
