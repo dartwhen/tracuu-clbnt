@@ -119,26 +119,27 @@ export function AIChat() {
               className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm md:bg-black/10"
             />
 
+            {/* Chat Modal */}
             <motion.div
               key="modal"
               initial={{ y: '100%', opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: '100%', opacity: 0 }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="fixed bottom-0 left-0 right-0 md:bottom-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 z-50 w-full md:w-full md:max-w-lg h-[85vh] md:h-[600px] rounded-t-3xl md:rounded-2xl bg-white shadow-2xl flex flex-col overflow-hidden"
+              className="fixed bottom-0 left-0 right-0 md:bottom-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 z-50 w-full md:max-w-xl h-[90vh] md:h-[680px] rounded-t-3xl md:rounded-2xl bg-white shadow-2xl flex flex-col overflow-hidden"
             >
-              {/* Header */}
-              <div className="flex items-center justify-between p-4 md:p-6 border-b border-blue-100">
-                <h2 className="text-lg md:text-xl font-bold text-blue-900 flex items-center gap-2">
+              {/* Header - Hạ cỡ chữ & icon, bỏ viền kẻ đường dưới */}
+              <div className="flex items-center justify-between px-5 pt-4 pb-2 md:px-6 md:pt-5 md:pb-2 shrink-0">
+                <h2 className="text-base md:text-lg font-bold text-blue-900 flex items-center gap-2">
                   <Sparkles className="w-5 h-5 text-blue-500" />
                   Trợ lý AI
                 </h2>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-2 hover:bg-blue-50 rounded-lg transition-colors"
+                  className="p-1 hover:bg-blue-50 rounded-lg transition-colors text-slate-400 hover:text-slate-600 active:scale-90"
                   aria-label="Close chat"
                 >
-                  <X className="w-5 h-5 text-slate-400" />
+                  <X className="w-5 h-5" />
                 </button>
               </div>
 
@@ -169,7 +170,7 @@ export function AIChat() {
                       }`}
                     >
                       <div
-                        className={`max-w-xs md:max-w-sm px-4 py-2 rounded-lg ${
+                        className={`max-w-xs md:max-w-md px-4 py-2.5 rounded-2xl ${
                           message.role === 'user'
                             ? 'bg-blue-500 text-white rounded-br-none'
                             : 'bg-blue-100 text-blue-900 rounded-bl-none'
@@ -181,12 +182,12 @@ export function AIChat() {
                   ))
                 )}
 
-                {/* 3 Nút câu hỏi mẫu ở góc dưới bên phải */}
+                {/* 3 Nút câu hỏi mẫu */}
                 {showSuggestedQuestions && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="flex flex-col items-end gap-2 pt-2 mt-auto"
+                    className="flex flex-col items-end gap-2.5 pt-2 mt-auto"
                   >
                     {SUGGESTED_QUESTIONS.map((question, index) => (
                       <button
@@ -198,7 +199,7 @@ export function AIChat() {
                           borderColor: 'rgb(22, 93, 252)',
                           color: 'rgb(22, 93, 252)',
                         }}
-                        className="px-3.5 py-1.5 rounded-full border bg-transparent text-xs md:text-sm text-right hover:bg-[rgb(22,93,252)]/10 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+                        className="px-3.5 py-2 md:px-5 md:py-2.5 rounded-full border bg-transparent text-[13.5px] md:text-[15.5px] font-medium text-right hover:bg-[rgb(22,93,252)]/10 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm leading-snug"
                       >
                         {question}
                       </button>
@@ -223,10 +224,10 @@ export function AIChat() {
                 )}
               </div>
 
-              {/* Input Area */}
+              {/* Input Area - Bỏ viền kẻ đường trên */}
               <form
                 onSubmit={handleSubmit}
-                className="p-4 md:p-6 border-t border-blue-100 bg-white shrink-0"
+                className="p-4 md:p-6 bg-white shrink-0"
               >
                 <div className="w-full flex items-center justify-between gap-2 pl-4 pr-1.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 focus-within:border-blue-500 transition-colors">
                   <input
