@@ -24,7 +24,6 @@ export function AIChat() {
   const [showSuggestedQuestions, setShowSuggestedQuestions] = useState(true)
   const chatContainerRef = useRef<HTMLDivElement>(null)
 
-  // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
@@ -43,7 +42,7 @@ export function AIChat() {
     setMessages((prev) => [...prev, userMessage])
     setInput('')
     setIsLoading(true)
-    setShowSuggestedQuestions(false) // Ẩn câu hỏi mẫu sau khi bấm chọn
+    setShowSuggestedQuestions(false)
 
     try {
       const response = await fetch('/api/chat', {
@@ -100,9 +99,7 @@ export function AIChat() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            {/* Rainbow glow effect */}
             <div className="absolute -inset-4 rounded-full blur-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-90 -z-10 animate-pulse pointer-events-none" />
-
             <Sparkles className="w-5 h-5" />
             <span>Hỏi đáp tức thì</span>
           </motion.button>
@@ -113,7 +110,6 @@ export function AIChat() {
       <AnimatePresence mode="wait">
         {isOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               key="backdrop"
               initial={{ opacity: 0 }}
@@ -123,7 +119,6 @@ export function AIChat() {
               className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm md:bg-black/10"
             />
 
-            {/* Chat Modal */}
             <motion.div
               key="modal"
               initial={{ y: '100%', opacity: 0 }}
@@ -150,10 +145,10 @@ export function AIChat() {
               {/* Messages Container */}
               <div
                 ref={chatContainerRef}
-                className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4"
+                className="flex-1 overflow-y-auto p-4 md:p-6 flex flex-col space-y-4"
               >
                 {messages.length === 0 ? (
-                  <div className="h-full flex items-center justify-center">
+                  <div className="flex-1 flex items-center justify-center">
                     <div className="text-center">
                       <p className="text-2xl md:text-3xl font-bold text-blue-600 mb-2">
                         Bạn đang nghĩ gì?
@@ -186,12 +181,12 @@ export function AIChat() {
                   ))
                 )}
 
-                {/* 3 Nút câu hỏi mẫu (Chỉ hiện khi showSuggestedQuestions = true) */}
+                {/* 3 Nút câu hỏi mẫu ở góc dưới bên phải */}
                 {showSuggestedQuestions && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="flex flex-col items-end gap-2 pt-2"
+                    className="flex flex-col items-end gap-2 pt-2 mt-auto"
                   >
                     {SUGGESTED_QUESTIONS.map((question, index) => (
                       <button
@@ -203,7 +198,7 @@ export function AIChat() {
                           borderColor: 'rgb(22, 93, 252)',
                           color: 'rgb(22, 93, 252)',
                         }}
-                        className="px-3.5 py-1.5 rounded-full border bg-transparent text-xs md:text-sm text-right hover:bg-[rgb(22,93,252)]/10 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="px-3.5 py-1.5 rounded-full border bg-transparent text-xs md:text-sm text-right hover:bg-[rgb(22,93,252)]/10 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
                       >
                         {question}
                       </button>
@@ -231,7 +226,7 @@ export function AIChat() {
               {/* Input Area */}
               <form
                 onSubmit={handleSubmit}
-                className="p-4 md:p-6 border-t border-blue-100 bg-white"
+                className="p-4 md:p-6 border-t border-blue-100 bg-white shrink-0"
               >
                 <div className="w-full flex items-center justify-between gap-2 pl-4 pr-1.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 focus-within:border-blue-500 transition-colors">
                   <input
