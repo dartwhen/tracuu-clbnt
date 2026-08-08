@@ -60,18 +60,20 @@ export default function Page() {
         {/* Footer */}
         <footer className="text-center text-xs text-slate-400 leading-relaxed pb-32 space-y-4 w-full">
           <div className="space-y-1">
-  <p className="text-sm font-bold text-slate-500 uppercase tracking-wider">
-    CỔNG TRA CỨU KẾT QUẢ TUYỂN SINH CLB NGHỆ THUẬT
-  </p>
-  <p className="text-sm font-bold text-slate-600 opacity-60">
-    © 2026 CLB Nghệ Thuật THPT Lê Hồng Phong
-  </p>
-</div>
+            <p className="text-sm font-bold text-slate-500 uppercase tracking-wider max-w-xs mx-auto sm:max-w-none">
+              CỔNG TRA CỨU KẾT QUẢ TUYỂN SINH CLB NGHỆ THUẬT
+            </p>
+            <p className="text-sm font-bold text-slate-600 opacity-60">
+              © 2026 CLB Nghệ Thuật THPT Lê Hồng Phong
+            </p>
+          </div>
 
           {/* Address */}
           <div className="space-y-1">
             <p className="text-slate-500 font-extrabold uppercase tracking-wider text-[12px]">Địa chỉ</p>
-            <p className="text-slate-500">THPT Lê Hồng Phong, 25 Đ. Nguyễn Thị Minh Khai, phường Phổ Yên, Thái Nguyên</p>
+            <p className="text-slate-500 max-w-xs mx-auto sm:max-w-none">
+              THPT Lê Hồng Phong, 25 Đ. Nguyễn Thị Minh Khai, phường Phổ Yên, Thái Nguyên
+            </p>
           </div>
 
           {/* Contact links */}
