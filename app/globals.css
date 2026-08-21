@@ -197,3 +197,8 @@
 .typing-dot:nth-child(1) { animation: typing-dot 1.2s ease infinite 0s; }
 .typing-dot:nth-child(2) { animation: typing-dot 1.2s ease infinite 0.2s; }
 .typing-dot:nth-child(3) { animation: typing-dot 1.2s ease infinite 0.4s; }
+
+html, body {
+  background-color: #f8fafc;
+  overscroll-behavior-y: none;
+}

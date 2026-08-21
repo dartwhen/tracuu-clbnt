@@ -89,7 +89,7 @@ export default function SearchForm({ onResult, searchState }: SearchFormProps) {
           Tra cứu kết quả tuyển sinh
         </h2>
         <p className="text-sm text-slate-500 mt-1.5 leading-relaxed">
-          Vui lòng nhập đầy đủ Số báo danh và chọn Số lớp để kiểm tra trạng thái tuyển thành viên.
+          Vui lòng nhập đầy đủ Số báo danh và Lớp học của bạn để kiểm tra kết quả tuyển thành viên.
         </p>
       </div>
 
@@ -110,7 +110,7 @@ export default function SearchForm({ onResult, searchState }: SearchFormProps) {
             id="sbd"
             value={sbd}
             onChange={(e) => setSbd(e.target.value)}
-            placeholder="Ví dụ: LHP001, ART042..."
+            placeholder="Ví dụ: NT600, NT620..."
             className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500/25 focus:border-indigo-500 outline-none transition-all text-slate-900 font-medium placeholder-slate-400 text-base disabled:bg-slate-100 disabled:cursor-not-allowed"
             required
             disabled={isLoading}
